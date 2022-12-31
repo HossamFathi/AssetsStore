@@ -1,0 +1,89 @@
+﻿@model AssetsStore_InterView.ViewModel.AssetDetailViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    int counter = 0;
+}
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="button" id="add" name="add">Add</button>
+           
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Name")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Description")
+                        </th>
+                        <th>operation</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Attributes)
+                    {
+                        <tr>
+                            <input type="hidden" name="Attributes[@counter].ID" value="@item.ID">
+                            <td>
+                                <input asp-for="@item.Name" name="Attributes[@counter].Name" class="form-control" />
+                            </td>
+                            <td>
+                                <input asp-for="@item.Description" name="Attributes[@counter].Description"
+                                class="form-control" />
+                                
+                            </td>
+                            <td><button type="button" id="remove" name="remove"  class="btn btn-danger remove">Delete</button></td>
+                        </tr>
+                        counter++;
+                    }
+                    @{counter--;}
+                    <input type="hidden" value="@counter" id="total_Attribute">
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input  type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a  asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $('#add').on('click', add);
+        $('#remove').on('click', remove);
+
+        function add() {
+            debugger;
+            var new_Attribute_no = parseInt($('#total_Attribute').val()) + 1;
+            var new_input = "<tr><td><input value='Name' name='Attributes[" + new_Attribute_no + "].Name' class='form-control valid' type ='text' required></td><td><input value='desciption' name='Attributes[" + new_Attribute_no + "].Description' class='form-control'  required></td><td> <a class='btn btn-danger remove' id='remove'> Delete </a></td ></tr>";
+
+            $('.table tbody').append(new_input);
+            $('#total_Attribute').val(new_Attribute_no);
+        }
+
+        $('body').on('click', '.remove', function () {
+            debugger;
+            $(this).parentsUntil('tbody').remove();
+            
+        })
+    </script>
+}

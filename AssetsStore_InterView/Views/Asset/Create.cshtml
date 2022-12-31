@@ -1,0 +1,73 @@
+﻿@model AssetsStore_InterView.ViewModel.AssetDetailViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>AssetDetailViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" class="form-control">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="Attributes">
+                <label asp-for="Attributes" class="control-label"></label>
+                <input type="hidden" value="0" id="total_Attribute">
+                <div>
+                    <div class="form-group col-md-12" id="#Attributes[0]"]>
+                        <label>Name</label>
+                        <input name="Attributes[0].Name" id="Attributes" required class="form-control  col-md-6" />
+                        <label>Desciption</label>
+                        <input name="Attributes[0].Description" id="Attributes" required class="form-control col-md-6" />
+                    </div>
+                    <button type="button" id="add" name="add">Add</button>
+                    <button type="button" id="remove" name="remove">remove</button>
+                    <span asp-validation-for="Attributes" class="text-danger"></span>
+
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $('#add').on('click', add);
+        $('#remove').on('click', remove);
+
+        function add() {
+            var new_Attribute_no = parseInt($('#total_Attribute').val()) + 1;
+            var new_input = "<div class='form-group col-md-12' id='Attributes[" + new_Attribute_no + "]'><label> Name </label><input name = 'Attributes[" + new_Attribute_no + "].Name' id = 'Attributes' required class='form-control  col-md-6' /><label>Desciption </label><input name = 'Attributes[" + new_Attribute_no + "].Description' id = 'Attributes' required class='form-control col-md-6' /></div>";
+
+            $('#Attributes').append(new_input);
+
+            $('#total_Attribute').val(new_Attribute_no);
+        }
+
+        function remove() {
+            var last_Attr_no = $('#total_Attribute').val();
+            debugger;
+            if (last_Attr_no >= 0) {
+                var divdeleted = $('#Attributes\\['+last_chq_no+'\\]');
+                divdeleted.remove();
+                $('#total_Attribute').val(last_chq_no - 1);
+            }
+        }
+    </script>
+}
