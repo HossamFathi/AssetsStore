@@ -3,13 +3,16 @@
 @{
     ViewData["Title"] = "Index";
 }
-<form asp-action="Search">
+<div class="col-lg-12 align-items-center m-3">
+    <h1 class="align-content-center">Assets</h1>
+</div>
+<form class="m-2" asp-action="Search">
     <div class="col-lg-12 form-group row">
-        <input type="text" name="Asset" id="Search" class="form-control col-lg-8" required />
-    <button type="submit" class="btn btn-success col-lg-4">Search</button>
+        <input type="text" name="Asset" id="Search" class="form-control col-lg-12" required />
+    <button type="submit" style="margin-top:2rem" class="btn btn-success col-lg-12">Search</button>
 </div>
 </form>
-<h1>Assets</h1>
+
 
 <p>
     <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
@@ -28,13 +31,13 @@
 @foreach (var item in Model) {
         <tr>
             
-            <td>
-                @Html.DisplayFor(modelItem => item.Name )
+            <td class="col-md-8">
+                @Html.DisplayFor(modelItem => item.Name  )
             </td>
             <td>
-                    <a href="/Asset/Edit" id=item.ID  class="btn btn-outline-primary" >Edit</a> 
-                    <a href="/Asset/Details" id=item.ID class="btn btn-outline-info">Details</a>
-                    <a href="/Asset/delete" id=item.ID  class="btn btn-outline-danger" >delete</a> 
+                    <a href="/Asset/Edit/@item.ID" id=item.ID  class="btn btn-outline-primary" >Edit</a> 
+                    <a href="/Asset/Details/@item.ID" id=item.ID class="btn btn-outline-info">Details</a>
+                    <a href="/Asset/delete/@item.ID" id=item.ID  class="btn btn-outline-danger" >delete</a> 
             </td>
         </tr>
 }
