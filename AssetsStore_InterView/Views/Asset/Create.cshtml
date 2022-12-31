@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>AssetDetailViewModel</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -64,9 +64,9 @@
             var last_Attr_no = $('#total_Attribute').val();
             debugger;
             if (last_Attr_no >= 0) {
-                var divdeleted = $('#Attributes\\['+last_chq_no+'\\]');
+                var divdeleted = $('#Attributes\\['+last_Attr_no+'\\]');
                 divdeleted.remove();
-                $('#total_Attribute').val(last_chq_no - 1);
+                $('#total_Attribute').val(last_Attr_no - 1);
             }
         }
     </script>
