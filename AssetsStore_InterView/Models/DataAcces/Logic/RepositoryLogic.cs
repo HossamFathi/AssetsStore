@@ -26,7 +26,7 @@ namespace AssetsStore.Models.DataAcces.Logic
         {
             try
             {
-                object RemovedEntity = _dbSet.Remove(entity);
+                T RemovedEntity = _dbSet.Remove(entity).Entity;
                 if (RemovedEntity is null)
                     return false;
                 return true;

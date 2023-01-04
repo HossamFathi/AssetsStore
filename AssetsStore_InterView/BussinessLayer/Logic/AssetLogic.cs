@@ -66,8 +66,16 @@ namespace AssetsStore_InterView.BussinessLayer.Logic
         public bool Update(AssetDetailViewModel assetdetail)
         {
             Asset NewAsset = AssetDetailViewModel_MapTo_Asset(assetdetail);
-            if (_repository.update(NewAsset))
-               return _repository.SaveChange();
+
+           var AttributeDeleted = _Attrubite.GetAll(ass => ass.AssetId == assetdetail.ID && !assetdetail.Attributes.Select(a => a.ID).Contains(ass.ID));
+
+            AttributeDeleted.Select(AttDelted => NewAsset.Attributes.ToList().RemoveAll(a => a.ID == AttDelted.ID));
+            if (AttributeDeleted.Count() == 0 || _Attrubite.RemoveRange(AttributeDeleted.Select(att => att.ID)))
+            {
+                
+                if (_repository.update(NewAsset))
+                    return _repository.SaveChange();
+            }
             return false;
         }
 
