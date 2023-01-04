@@ -1,0 +1,19 @@
+Site To Assets and Each Asset  has own Attributes 
+1- implement CRUD Operation 
+2- List all Assets
+3- Search in Asset List  
+
+To Run Project please change server name in connection string
+
+.Net Core 6 is used 
+Liberary :
+AutoMapper 
+EntityFramWork 
+EntityFramWork.SqlServer
+EntityFramWork.Tools
+
+Pages :
+1- List Assets And Search on it
+2 Update Asset and it's Attribute 
+3- Remove Asset 
+4- Create Asset and it's Attribute 
