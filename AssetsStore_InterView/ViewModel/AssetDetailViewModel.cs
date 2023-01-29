@@ -4,6 +4,7 @@
     {
         
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
         public IEnumerable<AttributeViewModel> Attributes { get; set; }
         public AssetDetailViewModel()

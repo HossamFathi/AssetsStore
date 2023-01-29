@@ -5,11 +5,11 @@
     int counter = 0;
 }
 
-<h1>Edit</h1>
+<h1 style="text-align:center">Edit Asset</h1>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit" id='form'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -17,9 +17,12 @@
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+                
             </div>
-            <button type="button" id="add" name="add">Add</button>
-
+           <div class="m-2">
+               <h4 class="card-title" style="float:left" >Attribute</h4>
+               <button type="button" class="btn btn-secondary add" style="float:right" name="add">Add</button>
+           </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -46,7 +49,9 @@
                                    class="form-control" />
 
                             </td>
-                            <td><button type="button" id="remove" name="remove" class="btn btn-danger remove">Delete</button></td>
+                            <td>
+                                <button type="button" id="remove" name="remove" class="btn btn-danger remove">Delete</button>
+                                </td>
                         </tr>
                         counter++;
                     }
@@ -57,68 +62,21 @@
                 </tbody>
             </table>
             <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger">Back to Assets</a>
                 <input type="submit" value="Save" class="btn btn-primary" />
+              
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        $('#add').on('click', add);
-
-       
-
-      
-
-
-        $('body').on('click', '.remove', function () {
-            debugger;
-            $(this).parentsUntil('tbody').remove();
-            var new_Attribute_no = parseInt($('#total_Attribute').val()) - 1;
-            $('#total_Attribute').val(new_Attribute_no);
-            reOrdring();
-        })
-
-        function add() {
-            debugger;
-            var new_Attribute_no = parseInt($('#total_Attribute').val()) + 1;
-            var new_input = "<tr class='AttributeRow'><td><input value='Name' name='Attributes[" + new_Attribute_no + "].Name' class='form-control valid' type ='text' required></td><td><input value='desciption' name='Attributes[" + new_Attribute_no + "].Description' class='form-control'  required></td><td> <a class='btn btn-danger remove' id='remove'> Delete </a></td ></tr>";
-
-            $('.table tbody').append(new_input);
-            $('#total_Attribute').val(new_Attribute_no);
-        }
-
-        function reOrdring() {
-            $("tr.AttributeRow").each(function (index, row) {
-                debugger;
-                var RowChildernCollection = row.children;
-                var length = Object.keys(RowChildernCollection).length;
-                if (length === 0)
-                    return;
-                if (length === 4) {
-                    RowChildernCollection[0].setAttribute('name', 'Attributes[' + index + '].ID');
-                    RowChildernCollection[1].children[0].setAttribute('name', 'Attributes[' + index + '].Name');
-                    RowChildernCollection[2].children[0].setAttribute('name', 'Attributes[' + index + '].Description');
-                }
-                else {
-                    RowChildernCollection[0].children[0].setAttribute('name', 'Attributes[' + index + '].Name');
-                    RowChildernCollection[1].children[0].setAttribute('name', 'Attributes[' + index + '].Description');
-                }
-
-
-            })
-        }
-
-
-
-
-    </script>
+   
 }
